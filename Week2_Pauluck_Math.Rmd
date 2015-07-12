@@ -1,59 +1,86 @@
 ---
-title: "Week 2 Assignment Math"
-author: "Puneet Auluck"
-output: html_document
+title: "Week 2 Assignment Math - Puneet Auluck"
+author: ''
+output: pdf_document
 ---
 
-**2.16 PB&J.  Suppose 80% of people like peanut butter, 89% like jelly, and 78% like both. Given that a randomly sampled person likes peanut butter, what's the probability that he also likes jelly?**
+### Short Answers:
+
+* **2.16** 0.9750
+* **2.18**
+    + (a) 0.2839
+    + (b) 0.2795
+    + (c) 0.3212
+    + (d) Yes, independent
+* **2.20**
+    + (a) 0.7059
+    + (b) 0.6842
+    + (c) 0.3519, 0.3056
+    + (d) No, not independent
+* **2.23** 0.4615
+
+### Detailed Answers:
+<span style="color:blue">**2.16 PB&J.  
+Suppose 80% of people like peanut butter, 89% like jelly, and 78% like both. Given that a randomly sampled person likes peanut butter, what's the probability that he also likes jelly?**</span><br>
 
 I have created a Venn diagram that displays the proportions of PB&J preferences.  
 
 P(like PB) = 80%, P(like Jelly) = 89% and P(like Jelly and like PB) = 78%
 
 ```{r}
-library(VennDiagram)
-draw.pairwise.venn(80, 89, 78, category = c("Like PB", "Like Jelly"), fill = c("light blue", "pink"), alpha = rep(0.5, 2), cat.pos = c(0,0), 
-                   cat.dist = rep(0.025, 2), scaled = FALSE, rotation.degree = 180)
+suppressMessages(library(VennDiagram))
+draw.pairwise.venn(80, 89, 78, category = c("Like PB", "Like Jelly"), fill = c("light blue", "yellow"), 
+                   alpha = rep(0.5, 2), cat.pos = c(0,0), cat.dist = rep(0.025, 2), scaled = FALSE, 
+                   rotation.degree = 180)
 ```
 
-You can also embed plots, for example:
+
 
 ```{r}
 p_like_PB <- 0.80
 p_like_Jelly <- 0.89
 p_like_PB_and_Jelly <- 0.78
 p_like_Jelly_given_PB <- p_like_PB_and_Jelly/p_like_PB
-p_like_Jelly_given_PB
 sprintf("The probability that the random person selected jelly is %1.4f.", p_like_Jelly_given_PB)
 ```
 
-**2.18 Weight and health coverage, Part II.  Exercise 2.14 introduced a contingency table summarizing the relationship between weight status, which is determined based on body mass index (BMI), and health coverage for a sample of 428,638Americans. In the table below, the counts have been replaced by relative frequencies (probability estimates).**
+
+
+<span style="color:blue">**2.18 Weight and health coverage, Part II.  
+Exercise 2.14 introduced a contingency table summarizing the relationship between weight status, which is determined based on body mass index (BMI), and health coverage for a sample of 428,638Americans. In the table below, the counts have been replaced by relative frequencies (probability estimates).**</span>
 ![Caption for the picture.](C:\Users\Minnie\Desktop\weight.png)
 
-*(a) What is the probability that a randomly chosen individual is obese?*
+<span style="color:brown">*(a) What is the probability that a randomly chosen individual is obese?*</span>
 
 ```{r}
 P_Obese <- 0.2839
 sprintf("The probability a randomly chosen individual is %1.4f.", P_Obese)
 ```
 
-*(b) What is the probability that a randomly chosen individual is obese given that he has health coverage?*
+
+
+<span style="color:brown">*(b) What is the probability that a randomly chosen individual is obese given that he has health coverage?*</span>
 ```{r}
-P_HCov_Yes <- 0.8954
+P_HC_Yes <- 0.8954
 P_Obese_and_HC_Yes <- 0.2503
-P_Obese_given_HC_Yes <- P_Obese_and_HC_Yes/P_HCov_Yes
+P_Obese_given_HC_Yes <- P_Obese_and_HC_Yes/P_HC_Yes
 sprintf("The probability is %1.4f.", P_Obese_given_HC_Yes)
 ```
  
-*(c) What is the probability that a randomly chosen individual is obese given that he doesn't have health coverage?*
+
+
+<span style="color:brown">*(c) What is the probability that a randomly chosen individual is obese given that he doesn't have health coverage?*</span>
 ```{r}
-P_HCov_No <- 0.1046
+P_HC_No <- 0.1046
 P_Obese_and_HC_No <- 0.0336
-P_Obese_given_HC_No <- P_Obese_and_HC_No/P_HCov_No
+P_Obese_given_HC_No <- P_Obese_and_HC_No/P_HC_No
 sprintf("The probability is %1.4f.", P_Obese_given_HC_No)
 ```
 
-*(d) Do being overweight and having health coverage appear to be independent?*
+
+
+<span style="color:brown">*(d) Do being overweight and having health coverage appear to be independent?*</span>
+
 Independence check:
 P(Overweight and Health Coverage Yes) = 0.3306
 P(OverWeight)*P(Health Coverage Yes) = 0.3664 * 0.8954
@@ -64,15 +91,16 @@ P_HC_Yes <- 0.8954
 sprintf("Is P_Overweight_and_HC_Yes: %1.4f equal to (P_Overweight)*(P_HC_Yes): %1.4f?", P_Overweight_and_HC_Yes, P_Overweight*P_HC_Yes)
 
 ```
+
 The probabilities calculated above are almost same so they appear to be independent.
 
 
-**2.20 Assortative mating.
-Assortative mating is a nonrandom mating pattern where individuals with similar genotypes and/or phenotypes mate with one another more frequently than what would be expected under a random mating pattern. Researchers studying this topic collected data on eye colors of 204 Scandinavian men and their female partners. The table below summarizes the results. For simplicity, we only include heterosexual relationships in this exercise.**
+<span style="color:blue">**2.20 Assortative mating.
+Assortative mating is a nonrandom mating pattern where individuals with similar genotypes and/or phenotypes mate with one another more frequently than what would be expected under a random mating pattern. Researchers studying this topic collected data on eye colors of 204 Scandinavian men and their female partners. The table below summarizes the results. For simplicity, we only include heterosexual relationships in this exercise.**</span>
 
 ![Caption for the picture.](C:\Users\Minnie\Desktop\mating.png)
 
-*(a) What is the probability that a randomly chosen male respondent or his partner has blue eyes?*
+<span style="color:brown">*(a) What is the probability that a randomly chosen male respondent or his partner has blue eyes?*</span>
 
 ```{r}
 P_MBL <- 114/204
@@ -83,13 +111,13 @@ sprintf("The probability is %1.4f.", P_MBL_or_FBL)
 ```
 
 
-*(b) What is the probability that a randomly chosen male respondent with blue eyes has a partner with blue eyes?*
+<span style="color:brown">*(b) What is the probability that a randomly chosen male respondent with blue eyes has a partner with blue eyes?*</span>
 ```{r}
 P_FBL_given_MBL <- P_MBL_and_FBL/P_MBL
 sprintf("The probability is %1.4f.", P_FBL_given_MBL)
 ```
 
-*(c) What is the probability that a randomly chosen male respondent with brown eyes has a partner with blue eyes? What about the probability of a randomly chosen male respondent with green eyes having a partner with blue eyes?*
+<span style="color:brown">*(c) What is the probability that a randomly chosen male respondent with brown eyes has a partner with blue eyes? What about the probability of a randomly chosen male respondent with green eyes having a partner with blue eyes?*</span>
 
 ```{r}
 P_MBR <- 54/204
@@ -103,11 +131,11 @@ P_FBL_given_MGR <- P_MGR_and_FBL/P_MGR
 sprintf("The probability green eyed male has a partner with blue eyes is %1.4f.", P_FBL_given_MGR)
 ```
 
-*(d) Does it appear that the eye colors of male respondents and their partners are independent? Explain your reasoning.*
+<span style="color:brown">*(d) Does it appear that the eye colors of male respondents and their partners are independent? Explain your reasoning.*</span>
 
-If eye colors of male respondents appear independent of their partners', then as an example, the following will be true:
+If eye colors of male respondents appear independent of their partners', then as an example, the following will be true: <br>
 P(Male Blue Eyes and Partner Female Brown Eyes) = P(Male Blue Eyes) * P(Partner Female Brown Eyes)
-The probabilies are computere in R
+
 
 ```{r}
 P_MBL_and_FBR <- 23/204
@@ -118,8 +146,8 @@ sprintf("Is P_MBL_and_FBR: %1.4f equal to (P_MBL)*(P_FBR): %1.4f?", P_MBL_and_FB
 
 As it can be seen, probabilities are different so it appears the eye colors of male respondents and their partners are independent.
 
-**2.26 Twins.
-About 30% of human twins are identical, and the rest are fraternal. Identical twins are necessarily the same sex - half are males and the other half are females. One-quarter of fraternal twins are both male, one-quarter both female, and one-half are mixes: one male, one female. You have just become a parent of twins and are told they are both girls. Given this information, what is the probability that they are identical?**
+<span style="color:blue">**2.26 Twins.
+About 30% of human twins are identical, and the rest are fraternal. Identical twins are necessarily the same sex - half are males and the other half are females. One-quarter of fraternal twins are both male, one-quarter both female, and one-half are mixes: one male, one female. You have just become a parent of twins and are told they are both girls. Given this information, what is the probability that they are identical?**</span>
 
 ![Twins Tree Diagram](C:\Users\Minnie\Desktop\Twins.png)
 
