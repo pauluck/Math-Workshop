@@ -105,14 +105,27 @@ sprintf("The probability green eyed male has a partner with blue eyes is %1.4f."
 
 *(d) Does it appear that the eye colors of male respondents and their partners are independent? Explain your reasoning.*
 
-**2.23 HIV in Swaziland.
-Swaziland has the highest HIV prevalence in the world: 25.9% of this country's population is infected with HIV. The ELISA test is one of the first and most accurate tests for HIV. For those who carry HIV, the ELISA test is 99.7% accurate. For those who do not carry HIV, the test is 92.6% accurate. If an individual from Swaziland has tested positive, what is the probability that he carries HIV?**
-
-![HIV Tree Diagram](C:\Users\Minnie\Desktop\HIVTree.png)
+If eye colors of male respondents appear independent of their partners', then as an example, the following will be true:
+P(Male Blue Eyes and Partner Female Brown Eyes) = P(Male Blue Eyes) * P(Partner Female Brown Eyes)
+The probabilies are computere in R
 
 ```{r}
-P_POS_given_HIV <- 0.997*0.259
-P_POS_given_NOHIV <- 0.0074*0.741
-P_HIV_given_POS <- P_POS_given_HIV / (P_POS_given_HIV + P_HIV_given_POS)
-sprintf("The probability is %1.4f.", P_HIV_given_POS)
+P_MBL_and_FBR <- 23/204
+P_MBL <- 114/204
+P_FBR <- 55/204
+sprintf("Is P_MBL_and_FBR: %1.4f equal to (P_MBL)*(P_FBR): %1.4f?", P_MBL_and_FBR, P_MBL * P_FBR)
+```
+
+As it can be seen, probabilities are different so it appears the eye colors of male respondents and their partners are independent.
+
+**2.26 Twins.
+About 30% of human twins are identical, and the rest are fraternal. Identical twins are necessarily the same sex - half are males and the other half are females. One-quarter of fraternal twins are both male, one-quarter both female, and one-half are mixes: one male, one female. You have just become a parent of twins and are told they are both girls. Given this information, what is the probability that they are identical?**
+
+![Twins Tree Diagram](C:\Users\Minnie\Desktop\Twins.png)
+
+```{r}
+P_2G_given_Ident <- 0.3 * 0.5
+P_2G_given_Frat <- 0.25 * 0.7
+P_Ident_given_2G <- P_2G_given_Ident / (P_2G_given_Ident + P_2G_given_Frat)
+sprintf("The probability is %1.4f.", P_Ident_given_2G)
 ```
