@@ -1,7 +1,7 @@
 ---
 title: "Week 2 Assignment Math - Puneet Auluck"
 author: ''
-output: pdf_document
+output: html_document
 ---
 
 ### Short Answers:
