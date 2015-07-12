@@ -1,0 +1,118 @@
+---
+title: "Week 2 Assignment Math"
+author: "Puneet Auluck"
+output: html_document
+---
+
+**2.16 PB&J.  Suppose 80% of people like peanut butter, 89% like jelly, and 78% like both. Given that a randomly sampled person likes peanut butter, what's the probability that he also likes jelly?**
+
+I have created a Venn diagram that displays the proportions of PB&J preferences.  
+
+P(like PB) = 80%, P(like Jelly) = 89% and P(like Jelly and like PB) = 78%
+
+```{r}
+library(VennDiagram)
+draw.pairwise.venn(80, 89, 78, category = c("Like PB", "Like Jelly"), fill = c("light blue", "pink"), alpha = rep(0.5, 2), cat.pos = c(0,0), 
+                   cat.dist = rep(0.025, 2), scaled = FALSE, rotation.degree = 180)
+```
+
+You can also embed plots, for example:
+
+```{r}
+p_like_PB <- 0.80
+p_like_Jelly <- 0.89
+p_like_PB_and_Jelly <- 0.78
+p_like_Jelly_given_PB <- p_like_PB_and_Jelly/p_like_PB
+p_like_Jelly_given_PB
+sprintf("The probability that the random person selected jelly is %1.4f.", p_like_Jelly_given_PB)
+```
+
+**2.18 Weight and health coverage, Part II.  Exercise 2.14 introduced a contingency table summarizing the relationship between weight status, which is determined based on body mass index (BMI), and health coverage for a sample of 428,638Americans. In the table below, the counts have been replaced by relative frequencies (probability estimates).**
+![Caption for the picture.](C:\Users\Minnie\Desktop\weight.png)
+
+*(a) What is the probability that a randomly chosen individual is obese?*
+
+```{r}
+P_Obese <- 0.2839
+sprintf("The probability a randomly chosen individual is %1.4f.", P_Obese)
+```
+
+*(b) What is the probability that a randomly chosen individual is obese given that he has health coverage?*
+```{r}
+P_HCov_Yes <- 0.8954
+P_Obese_and_HC_Yes <- 0.2503
+P_Obese_given_HC_Yes <- P_Obese_and_HC_Yes/P_HCov_Yes
+sprintf("The probability is %1.4f.", P_Obese_given_HC_Yes)
+```
+ 
+*(c) What is the probability that a randomly chosen individual is obese given that he doesn't have health coverage?*
+```{r}
+P_HCov_No <- 0.1046
+P_Obese_and_HC_No <- 0.0336
+P_Obese_given_HC_No <- P_Obese_and_HC_No/P_HCov_No
+sprintf("The probability is %1.4f.", P_Obese_given_HC_No)
+```
+
+*(d) Do being overweight and having health coverage appear to be independent?*
+Independence check:
+P(Overweight and Health Coverage Yes) = 0.3306
+P(OverWeight)*P(Health Coverage Yes) = 0.3664 * 0.8954
+```{r}
+P_Overweight_and_HC_Yes <- 0.3306
+P_Overweight <- 0.3664
+P_HC_Yes <- 0.8954
+sprintf("Is P_Overweight_and_HC_Yes: %1.4f equal to (P_Overweight)*(P_HC_Yes): %1.4f?", P_Overweight_and_HC_Yes, P_Overweight*P_HC_Yes)
+
+```
+The probabilities calculated above are almost same so they appear to be independent.
+
+
+**2.20 Assortative mating.
+Assortative mating is a nonrandom mating pattern where individuals with similar genotypes and/or phenotypes mate with one another more frequently than what would be expected under a random mating pattern. Researchers studying this topic collected data on eye colors of 204 Scandinavian men and their female partners. The table below summarizes the results. For simplicity, we only include heterosexual relationships in this exercise.**
+
+![Caption for the picture.](C:\Users\Minnie\Desktop\mating.png)
+
+*(a) What is the probability that a randomly chosen male respondent or his partner has blue eyes?*
+
+```{r}
+P_MBL <- 114/204
+P_FBL <- 108/204
+P_MBL_and_FBL <- 78/204
+P_MBL_or_FBL <- (P_MBL + P_FBL)-(P_MBL_and_FBL)
+sprintf("The probability is %1.4f.", P_MBL_or_FBL)
+```
+
+
+*(b) What is the probability that a randomly chosen male respondent with blue eyes has a partner with blue eyes?*
+```{r}
+P_FBL_given_MBL <- P_MBL_and_FBL/P_MBL
+sprintf("The probability is %1.4f.", P_FBL_given_MBL)
+```
+
+*(c) What is the probability that a randomly chosen male respondent with brown eyes has a partner with blue eyes? What about the probability of a randomly chosen male respondent with green eyes having a partner with blue eyes?*
+
+```{r}
+P_MBR <- 54/204
+P_MBR_and_FBL <- 19/204
+P_FBL_given_MBR <- P_MBR_and_FBL/P_MBR
+sprintf("The probability brown eyed male has a partner with blue eyes is %1.4f.", P_FBL_given_MBR)
+
+P_MGR <- 36/204
+P_MGR_and_FBL <- 11/204
+P_FBL_given_MGR <- P_MGR_and_FBL/P_MGR
+sprintf("The probability green eyed male has a partner with blue eyes is %1.4f.", P_FBL_given_MGR)
+```
+
+*(d) Does it appear that the eye colors of male respondents and their partners are independent? Explain your reasoning.*
+
+**2.23 HIV in Swaziland.
+Swaziland has the highest HIV prevalence in the world: 25.9% of this country's population is infected with HIV. The ELISA test is one of the first and most accurate tests for HIV. For those who carry HIV, the ELISA test is 99.7% accurate. For those who do not carry HIV, the test is 92.6% accurate. If an individual from Swaziland has tested positive, what is the probability that he carries HIV?**
+
+![HIV Tree Diagram](C:\Users\Minnie\Desktop\HIVTree.png)
+
+```{r}
+P_POS_given_HIV <- 0.997*0.259
+P_POS_given_NOHIV <- 0.0074*0.741
+P_HIV_given_POS <- P_POS_given_HIV / (P_POS_given_HIV + P_HIV_given_POS)
+sprintf("The probability is %1.4f.", P_HIV_given_POS)
+```
